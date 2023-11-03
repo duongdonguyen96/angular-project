@@ -84,6 +84,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {TreeModule} from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {ToastrModule} from "ngx-toastr";
 
 // Application Components
 import {AppCodeModule} from './blocks/app-code/app.code.component';
@@ -139,9 +140,12 @@ import {ProductService} from './demo/service/productservice';
 
 // Application services
 import {MenuService} from './app.menu.service';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
         BrowserModule,
         FormsModule,
         AppRoutingModule,
@@ -275,4 +279,5 @@ import {MenuService} from './app.menu.service';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
