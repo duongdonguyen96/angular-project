@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../authentication/auth";
 
 @Component({
     templateUrl: './chartsdemo.component.html'
@@ -25,7 +26,12 @@ export class ChartsDemoComponent implements OnInit {
 
     radarOptions: any;
 
+    constructor(private service: AuthService) {
+    }
+
     ngOnInit() {
+        this.pieData = this.getPieChart()
+
         this.lineData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -62,7 +68,7 @@ export class ChartsDemoComponent implements OnInit {
                         color: '#A0A7B5'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
                 y: {
@@ -70,7 +76,7 @@ export class ChartsDemoComponent implements OnInit {
                         color: '#A0A7B5'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
             }
@@ -108,7 +114,7 @@ export class ChartsDemoComponent implements OnInit {
                         color: '#A0A7B5'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
                 y: {
@@ -116,25 +122,12 @@ export class ChartsDemoComponent implements OnInit {
                         color: '#A0A7B5'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
             }
         };
 
-        this.pieData = {
-            labels: ['A', 'B', 'C'],
-            datasets: [
-                {
-                    data: [540, 325, 702, 421],
-                    backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)'
-                    ]
-                }]
-        };
 
         this.pieOptions = {
             plugins: {
@@ -230,4 +223,26 @@ export class ChartsDemoComponent implements OnInit {
             }
         };
     }
+
+    getPieChart() {
+        let obj
+
+        this.service.getPieChart().subscribe(item => {
+            obj = item
+            this.pieData = {
+                labels: ['Male', 'Female', 'Other'],
+                datasets: [
+                    {
+                        data: Object.values(obj.data),
+                        backgroundColor: [
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 205, 86)',
+                        ]
+                    }]
+            };
+        }, error => {
+        })
+    }
 }
+

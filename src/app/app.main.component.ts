@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {MenuService} from './app.menu.service';
 import {PrimeNGConfig} from 'primeng/api';
 import {AppComponent} from './app.component';
+import {an} from "@fullcalendar/core/internal-common";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-main',
@@ -31,8 +33,20 @@ export class AppMainComponent {
 
     configClick: boolean;
 
-    constructor(private menuService: MenuService, private primengConfig: PrimeNGConfig, public app: AppComponent) {
+    fullName: string
+
+    constructor(
+        private menuService: MenuService,
+        private primengConfig: PrimeNGConfig,
+        public app: AppComponent,
+        private router: Router,
+    ) {
     }
+
+    ngOnInit() {
+        this.getUserFromLocalStorage()
+    }
+
 
     onLayoutClick() {
         if (!this.menuClick && !this.menuButtonClick) {
@@ -131,4 +145,24 @@ export class AppMainComponent {
     isMobile() {
         return window.innerWidth <= 640;
     }
+
+
+    // getFullName() {
+    //     this.fullName = this.authentication.getUserFromLocalStorage()
+    // }
+    getUserFromLocalStorage() {
+        let userInfo = JSON.parse(localStorage.getItem('user-login'))
+        this.fullName = userInfo.user_info.full_name
+    }
+
+    getUserProfile() {
+        this.router.navigate(['/user/info'])
+    }
+
+    // logOut() {
+    //     this.router.navigate(['/login'])
+    //     localStorage.removeItem('user-login')
+    //     this.isLogin = false
+    // }
+
 }

@@ -1,12 +1,14 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Product, User} from "../demo/domain/product";
+import {Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router,) {
 
     }
 
@@ -17,16 +19,24 @@ export class AuthService {
     }
 
     RegisterUser(inputdata: any) {
-        return this.http.post(this.apiurl, inputdata)
+        return this.http.post(this.apiurl, inputdata,)
     }
 
     GetUserbyCode(id: any) {
         return this.http.get(this.apiurl + '/' + id);
     }
 
-    Getall() {
-        return this.http.get(this.apiurl);
+    GetAllUser(input: any) {
+        return this.http.post<any>(this.apiurl + 'all_users', input)
+            .toPromise()
+            .then(res => res.data.data as User[])
+            .then(data => data);
     }
+
+    getPieChart() {
+        return this.http.get(this.apiurl + 'chart_2')
+    }
+
 
     updateuser(id: any, inputdata: any) {
         return this.http.put(this.apiurl + '/' + id, inputdata);
@@ -51,4 +61,19 @@ export class AuthService {
     Getaccessbyrole(role: any, menu: any) {
         return this.http.get('http://localhost:3000/roleaccess?role=' + role + '&menu=' + menu)
     }
+
+
+    getLocalStorage(key: string) {
+    }
+
+    isLogin() {
+        const userLogin = JSON.parse(localStorage.getItem('user-login'))
+        return !!userLogin;
+    }
+
+    logOut() {
+        this.router.navigate(['/login'])
+        localStorage.removeItem('user-login')
+    }
+
 }

@@ -5,8 +5,10 @@ import {AppMainComponent} from './app.main.component';
 @Component({
     selector: 'app-config',
     template: `
-        <div class="layout-config" [ngClass]="{'layout-config-active': appMain.configActive}" (click)="appMain.onConfigClick($event)">
-            <a style="cursor: pointer" id="layout-config-button" class="layout-config-button" (click)="onConfigButtonClick($event)">
+        <div class="layout-config" [ngClass]="{'layout-config-active': appMain.configActive}"
+             (click)="appMain.onConfigClick($event)">
+            <a style="cursor: pointer" id="layout-config-button" class="layout-config-button"
+               (click)="onConfigButtonClick($event)">
                 <i class="pi pi-cog"></i>
             </a>
             <div class="layout-config-content">
@@ -20,15 +22,18 @@ import {AppMainComponent} from './app.main.component';
                         <span class="section-name">Menu Mode</span>
                         <div class="grid layout-config-options">
                             <div class="col-12 md:col-6">
-                                <p-radioButton name="menu" value="static" [(ngModel)]="app.menu" inputId="menuMode1"></p-radioButton>
+                                <p-radioButton name="menu" value="static" [(ngModel)]="app.menu"
+                                               inputId="menuMode1"></p-radioButton>
                                 <label for="menuMode1">Static</label>
                             </div>
                             <div class="col-12 md:col-6">
-                                <p-radioButton name="menu" value="overlay" [(ngModel)]="app.menu" inputId="menuMode2"></p-radioButton>
+                                <p-radioButton name="menu" value="overlay" [(ngModel)]="app.menu"
+                                               inputId="menuMode2"></p-radioButton>
                                 <label for="menuMode2">Overlay</label>
                             </div>
                             <div class="col-12 md:col-6">
-                                <p-radioButton name="menu" value="slim" [(ngModel)]="app.menu" inputId="menuMode3"></p-radioButton>
+                                <p-radioButton name="menu" value="slim" [(ngModel)]="app.menu"
+                                               inputId="menuMode3"></p-radioButton>
                                 <label for="menuMode3">Slim</label>
                             </div>
                         </div>
@@ -36,18 +41,21 @@ import {AppMainComponent} from './app.main.component';
 
                     <div id="orientation-panel" class="layout-config-section dark">
                         <span class="section-name">Dark Menu</span>
-                        <p-inputSwitch [ngModel]="app.darkMenu" (onChange)="appMain.onMenuColorChange($event)"></p-inputSwitch>
+                        <p-inputSwitch [ngModel]="app.darkMenu"
+                                       (onChange)="appMain.onMenuColorChange($event)"></p-inputSwitch>
                     </div>
 
                     <div id="outlined-panel" class="layout-config-section options">
                         <span class="section-name">Form Type</span>
                         <div class="grid layout-config-options">
                             <div class="col-12 md:col-6">
-                                <p-radioButton name="inputStyle" value="outlined" [(ngModel)]="app.inputStyle" inputId="inputStyle1"></p-radioButton>
+                                <p-radioButton name="inputStyle" value="outlined" [(ngModel)]="app.inputStyle"
+                                               inputId="inputStyle1"></p-radioButton>
                                 <label for="inputStyle1">Outlined</label>
                             </div>
                             <div class="col-12 md:col-6">
-                                <p-radioButton name="inputStyle" value="filled" [(ngModel)]="app.inputStyle" inputId="inputStyle2"></p-radioButton>
+                                <p-radioButton name="inputStyle" value="filled" [(ngModel)]="app.inputStyle"
+                                               inputId="inputStyle2"></p-radioButton>
                                 <label for="inputStyle2">Filled</label>
                             </div>
                         </div>
@@ -55,7 +63,8 @@ import {AppMainComponent} from './app.main.component';
 
                     <div id="ripple-panel" class="layout-config-section ripple">
                         <span class="section-name">Ripple Effect</span>
-                        <p-inputSwitch [ngModel]="app.ripple" (onChange)="appMain.onRippleChange($event)"></p-inputSwitch>
+                        <p-inputSwitch [ngModel]="app.ripple"
+                                       (onChange)="appMain.onRippleChange($event)"></p-inputSwitch>
                     </div>
 
                     <div id="componentthemes-panel" class="layout-config-section colors">
@@ -81,7 +90,8 @@ import {AppMainComponent} from './app.main.component';
                                     <span class="layout-config-option-color"
                                           [ngStyle]="{'background-color': f.color, 'border': f.name === 'default'?'1px solid #757575':'none'}"></span>
                                     <span class="layout-config-option-check-mask" *ngIf="app.layout === f.name">
-                                        <i class="pi pi-check" [ngStyle]="{'color': f.name === 'default'?'#000000':''}"></i>
+                                        <i class="pi pi-check"
+                                           [ngStyle]="{'color': f.name === 'default'?'#000000':''}"></i>
                                     </span>
                                 </a>
                             </div>
@@ -93,7 +103,8 @@ import {AppMainComponent} from './app.main.component';
                         <div class="grid layout-config-colors">
                             <div *ngFor="let t of themes" class="col col-fixed">
                                 <a style="cursor: pointer" (click)="changeTheme(t.name)" class="layout-config-option">
-                                    <span class="layout-config-option-color" [ngStyle]="{'background-color': t.color}"></span>
+                                    <span class="layout-config-option-color"
+                                          [ngStyle]="{'background-color': t.color}"></span>
                                     <span class="layout-config-option-check-mask" *ngIf="theme === t.name">
                                         <i class="pi pi-check"></i>
                                     </span>
@@ -121,6 +132,7 @@ export class AppConfigComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.changeLayout('crimson')
         this.themes = [
             {name: 'blue', color: '#3984b8'},
             {name: 'deeppurple', color: '#B85CC8'},

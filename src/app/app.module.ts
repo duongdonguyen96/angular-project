@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -141,7 +141,10 @@ import {ProductService} from './demo/service/productservice';
 // Application services
 import {MenuService} from './app.menu.service';
 import {ReactiveFormsModule} from "@angular/forms";
+import {AuthInterceptor} from "./authentication/interceptor/auth.interceptor";
+import { ProfileComponent } from './pages/user/profile/profile.component';
 
+// @ts-ignore
 @NgModule({
     imports: [
         ToastrModule.forRoot(),
@@ -270,12 +273,27 @@ import {ReactiveFormsModule} from "@angular/forms";
         AppErrorComponent,
         AppAccessdeniedComponent,
         BlocksComponent,
-        BlockViewer
+        BlockViewer,
+        ProfileComponent
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService
+        PhotoService, ProductService, MenuService,
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: AuthInterceptor,
+        //     multi: true
+        // }
     ],
     bootstrap: [AppComponent]
 })
